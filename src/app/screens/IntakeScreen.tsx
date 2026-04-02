@@ -4,7 +4,7 @@ import { useAssessment } from '../context/AssessmentContext';
 import { Button } from '../components/Button';
 import { Input } from '../components/Input';
 import { Card } from '../components/Card';
-import { Calendar } from 'lucide-react';
+import { Calendar, ArrowLeft } from 'lucide-react';
 
 export function IntakeScreen() {
   const navigate = useNavigate();
@@ -22,6 +22,14 @@ export function IntakeScreen() {
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-8">
       <div className="w-full max-w-2xl">
+        <button
+          onClick={() => navigate('/')}
+          className="flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6 transition-colors"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span className="text-sm">Back to Home</span>
+        </button>
+        
         <div className="text-center mb-8">
           <h1 className="text-[32px] font-semibold text-foreground mb-2">Y-BOCS Assessment</h1>
           <p className="text-lg text-muted-foreground">Yale-Brown Obsessive Compulsive Scale</p>

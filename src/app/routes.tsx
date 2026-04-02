@@ -1,4 +1,5 @@
 import { createBrowserRouter } from 'react-router';
+import { HomeScreen } from './screens/HomeScreen';
 import { IntakeScreen } from './screens/IntakeScreen';
 import { InstructionsScreen } from './screens/InstructionsScreen';
 import { SymptomsScreen } from './screens/SymptomsScreen';
@@ -13,6 +14,10 @@ import { ConfirmationScreen } from './screens/ConfirmationScreen';
 export const router = createBrowserRouter([
   {
     path: '/',
+    Component: HomeScreen,
+  },
+  {
+    path: '/intake',
     Component: IntakeScreen,
   },
   {
