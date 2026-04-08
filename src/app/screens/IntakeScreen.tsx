@@ -4,6 +4,7 @@ import { useAssessment } from '../context/AssessmentContext';
 import { Button } from '../components/Button';
 import { Input } from '../components/Input';
 import { Card } from '../components/Card';
+import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Calendar, ArrowLeft } from 'lucide-react';
 
 export function IntakeScreen() {
@@ -31,8 +32,14 @@ export function IntakeScreen() {
         </button>
         
         <div className="text-center mb-8">
-          <h1 className="text-[32px] font-semibold text-foreground mb-2">Y-BOCS Assessment</h1>
-          <p className="text-lg text-muted-foreground">Yale-Brown Obsessive Compulsive Scale</p>
+          <div className="flex justify-center mb-3">
+            <div className="h-32 w-64 bg-secondary border-2 border-border rounded-lg flex items-center justify-center">
+              <span className="text-muted-foreground">logo here</span>
+            </div>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            Comprehensive structured assessment for OCD symptom severity
+          </p>
         </div>
 
         <Card>

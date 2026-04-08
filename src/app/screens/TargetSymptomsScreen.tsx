@@ -5,7 +5,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useAssessment, TargetSymptom } from '../context/AssessmentContext';
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
-import { ArrowLeft, GripVertical, X, Plus } from 'lucide-react';
+import { ArrowLeft, GripVertical, X } from 'lucide-react';
 
 const ItemTypes = {
   TARGET_SYMPTOM: 'target_symptom',
@@ -262,7 +262,7 @@ function TargetSymptomsContent() {
 
           <div className="col-span-3">
             <Card>
-              <h3 className="font-semibold text-foreground mb-4">Available Symptoms</h3>
+              <h3 className="font-semibold text-foreground mb-4">Primary Symptoms</h3>
 
               <div className="space-y-4">
                 {selectedObsessions.filter(s => s.primary || s.current).length > 0 && (
@@ -273,22 +273,29 @@ function TargetSymptomsContent() {
                     <div className="space-y-2">
                       {selectedObsessions
                         .filter(s => s.primary || s.current)
-                        .map(symptom => (
+                        .map(symptom => {
+                          const isSelected = targetObsessions.some(t => t.id === symptom.id);
+                          return (
                           <button
                             key={symptom.id}
                             onClick={() => addTargetObsession(symptom.label, symptom.id)}
                             disabled={
                               targetObsessions.length >= 3 ||
-                              targetObsessions.some(t => t.id === symptom.id)
+                              isSelected
                             }
                             className="w-full flex items-center gap-2 p-2 text-left border border-border rounded-md hover:bg-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                           >
-                            <Plus className="w-4 h-4 text-muted-foreground" />
+                            <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                              isSelected ? 'border-primary bg-primary' : 'border-muted-foreground'
+                            }`}>
+                              {isSelected && <div className="w-2 h-2 rounded-full bg-primary-foreground" />}
+                            </div>
                             <span className="text-xs text-foreground flex-1">
                               {symptom.label}
                             </span>
                           </button>
-                        ))}
+                          );
+                        })}
                     </div>
                   </div>
                 )}
@@ -301,22 +308,29 @@ function TargetSymptomsContent() {
                     <div className="space-y-2">
                       {selectedCompulsions
                         .filter(s => s.primary || s.current)
-                        .map(symptom => (
+                        .map(symptom => {
+                          const isSelected = targetCompulsions.some(t => t.id === symptom.id);
+                          return (
                           <button
                             key={symptom.id}
                             onClick={() => addTargetCompulsion(symptom.label, symptom.id)}
                             disabled={
                               targetCompulsions.length >= 3 ||
-                              targetCompulsions.some(t => t.id === symptom.id)
+                              isSelected
                             }
                             className="w-full flex items-center gap-2 p-2 text-left border border-border rounded-md hover:bg-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                           >
-                            <Plus className="w-4 h-4 text-muted-foreground" />
+                            <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                              isSelected ? 'border-primary bg-primary' : 'border-muted-foreground'
+                            }`}>
+                              {isSelected && <div className="w-2 h-2 rounded-full bg-primary-foreground" />}
+                            </div>
                             <span className="text-xs text-foreground flex-1">
                               {symptom.label}
                             </span>
                           </button>
-                        ))}
+                          );
+                        })}
                     </div>
                   </div>
                 )}
@@ -329,22 +343,29 @@ function TargetSymptomsContent() {
                     <div className="space-y-2">
                       {selectedAvoidance
                         .filter(s => s.primary || s.current)
-                        .map(symptom => (
+                        .map(symptom => {
+                          const isSelected = targetAvoidance.some(t => t.id === symptom.id);
+                          return (
                           <button
                             key={symptom.id}
                             onClick={() => addTargetAvoidance(symptom.label, symptom.id)}
                             disabled={
                               targetAvoidance.length >= 3 ||
-                              targetAvoidance.some(t => t.id === symptom.id)
+                              isSelected
                             }
                             className="w-full flex items-center gap-2 p-2 text-left border border-border rounded-md hover:bg-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                           >
-                            <Plus className="w-4 h-4 text-muted-foreground" />
+                            <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                              isSelected ? 'border-primary bg-primary' : 'border-muted-foreground'
+                            }`}>
+                              {isSelected && <div className="w-2 h-2 rounded-full bg-primary-foreground" />}
+                            </div>
                             <span className="text-xs text-foreground flex-1">
                               {symptom.label}
                             </span>
                           </button>
-                        ))}
+                          );
+                        })}
                     </div>
                   </div>
                 )}

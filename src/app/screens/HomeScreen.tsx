@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router';
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
+import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { 
   FileText, 
   BookOpen, 
@@ -105,12 +106,13 @@ export function HomeScreen() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-primary mb-3">
-            Y-BOCS Clinical Assessment
-          </h1>
-          <p className="text-lg text-muted-foreground">
-            Yale-Brown Obsessive Compulsive Scale
-          </p>
+          {/* Logo */}
+          <div className="flex justify-center mb-6">
+            <div className="h-32 w-64 bg-secondary border-2 border-border rounded-lg flex items-center justify-center">
+              <span className="text-muted-foreground">logo here</span>
+            </div>
+          </div>
+          
           <p className="text-sm text-muted-foreground mt-2">
             Comprehensive structured assessment for OCD symptom severity
           </p>

@@ -1,7 +1,7 @@
 
-  # OCD-app v3
+  # OCD Scales App V4
 
-  This is a code bundle for OCD-app v3. The original project is available at https://www.figma.com/design/EoURXYtdYaHZ5Kjg5RTwUp/OCD-app-v3.
+  This is a code bundle for OCD Scales App V4. The original project is available at https://www.figma.com/design/EoURXYtdYaHZ5Kjg5RTwUp/OCD-Scales-App-V4.
 
   ## Running the code
 

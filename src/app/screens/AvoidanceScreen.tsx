@@ -164,7 +164,7 @@ export function AvoidanceScreen() {
                 )}
                 {avoidance.primary && (
                   <span className="px-2 py-0.5 bg-primary text-primary-foreground text-xs rounded-md">
-                    Principal
+                    Primary
                   </span>
                 )}
               </div>
