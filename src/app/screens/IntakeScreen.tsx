@@ -33,13 +33,9 @@ export function IntakeScreen() {
         
         <div className="text-center mb-8">
           <div className="flex justify-center mb-3">
-            <img
-              src="/ocd-scales-logo.jpg"
-              alt="OCD Scales logo"
-              className="h-32 w-auto object-contain"
-              loading="eager"
-              decoding="async"
-            />
+            <div className="h-32 w-64 bg-secondary border-2 border-border rounded-lg flex items-center justify-center">
+              <span className="text-muted-foreground">logo here</span>
+            </div>
           </div>
           <p className="text-sm text-muted-foreground">
             Comprehensive structured assessment for OCD symptom severity

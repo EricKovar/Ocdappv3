@@ -114,7 +114,30 @@ export function CompulsionsScreen() {
 
   const updateCompulsion = (id: string, updates: Partial<SymptomItem>) => {
     setSelectedCompulsions(
-      selectedCompulsions.map(s => (s.id === id ? { ...s, ...updates } : s))
+      selectedCompulsions.map(s => {
+        if (s.id === id) {
+          const newSymptom = { ...s, ...updates };
+          
+          // Enforce mutual exclusivity rules:
+          // 1. Current and Past are mutually exclusive
+          if (updates.current === true) {
+            newSymptom.past = false;
+          }
+          if (updates.past === true) {
+            newSymptom.current = false;
+            newSymptom.primary = false; // Principal not allowed with Past
+          }
+          
+          // 2. Principal can only be selected with Current
+          if (updates.primary === true && newSymptom.past) {
+            newSymptom.past = false;
+            newSymptom.current = true;
+          }
+          
+          return newSymptom;
+        }
+        return s;
+      })
     );
   };
 
@@ -253,7 +276,7 @@ export function CompulsionsScreen() {
                 )}
                 {compulsion.primary && (
                   <span className="px-2 py-0.5 bg-primary text-primary-foreground text-xs rounded-md">
-                    Primary
+                    Principal
                   </span>
                 )}
               </div>
