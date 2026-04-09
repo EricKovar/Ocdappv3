@@ -62,7 +62,7 @@ export function ChecklistRow({
                 : 'bg-secondary text-secondary-foreground border border-border'
             }`}
           >
-            Primary
+            Principal
           </button>
         </div>
       )}

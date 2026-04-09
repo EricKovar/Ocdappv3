@@ -262,7 +262,7 @@ function TargetSymptomsContent() {
 
           <div className="col-span-3">
             <Card>
-              <h3 className="font-semibold text-foreground mb-4">Primary Symptoms</h3>
+              <h3 className="font-semibold text-foreground mb-4">Principal Symptoms</h3>
 
               <div className="space-y-4">
                 {selectedObsessions.filter(s => s.primary || s.current).length > 0 && (
