@@ -108,9 +108,13 @@ export function HomeScreen() {
         <div className="text-center mb-12">
           {/* Logo */}
           <div className="flex justify-center mb-6">
-            <div className="h-32 w-64 bg-secondary border-2 border-border rounded-lg flex items-center justify-center">
-              <span className="text-muted-foreground">logo here</span>
-            </div>
+            <img
+              src="/ocd-scales-logo.jpg"
+              alt="OCD Scales logo"
+              className="h-32 w-auto object-contain"
+              loading="eager"
+              decoding="async"
+            />
           </div>
           
           <p className="text-sm text-muted-foreground mt-2">
