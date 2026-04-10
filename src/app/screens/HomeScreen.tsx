@@ -109,8 +109,12 @@ export function HomeScreen() {
           <div className="flex items-start gap-8 mb-8">
             {/* Left: Logo and subtitle - positioned to center over 2 leftmost columns */}
             <div className="flex flex-col items-center" style={{ width: 'calc(66.666% - 1rem)' }}>
-              <div className="h-32 w-64 bg-secondary border-2 border-border rounded-lg flex items-center justify-center mb-4">
-                <span className="text-muted-foreground">logo here</span>
+              <div className="mb-4">
+                <img
+                  src="/ocd-scales-logo.jpg"
+                  alt="OCD Scales logo"
+                  className="h-32 w-auto object-contain"
+                />
               </div>
               
               <div className="text-sm text-muted-foreground text-center">
