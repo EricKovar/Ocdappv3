@@ -127,8 +127,16 @@ export function HomeScreen() {
 
           {/* Logo and Start Assessment Card - spans 1 column */}
           <Card className="bg-white border border-gray-200 shadow-sm p-8 flex flex-col items-center justify-between">
-            <div className="bg-gray-100 rounded border border-gray-200 flex items-center justify-center mb-6" style={{ width: '180px', height: '80px' }}>
-              <span className="text-gray-400 text-sm">logo here</span>
+            <div
+              className="mb-6 flex items-center justify-center"
+              style={{ width: '180px', height: '80px' }}
+            >
+              <img
+                src="/ocd-scales-logo.jpg"
+                alt="OCD Scales logo"
+                className="max-h-full max-w-full object-contain"
+              />
+            </div>
             </div>
 
             <div className="text-center mb-6">
