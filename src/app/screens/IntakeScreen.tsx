@@ -32,18 +32,34 @@ export function IntakeScreen() {
         </button>
         
         <div className="text-center mb-8">
-          <div className="flex justify-center mb-3">
-            <img
-              src="/ocd-scales-logo.jpg"
-              alt="OCD Scales logo"
-              className="h-32 w-auto object-contain"
-              loading="eager"
-              decoding="async"
-            />
+          <div className="flex justify-center gap-6 mb-3">
+            <div className="h-32 w-64 bg-secondary border-2 border-border rounded-lg flex items-center justify-center flex-shrink-0">
+              <span className="text-muted-foreground">logo here</span>
+            </div>
+            
+            {/* Developer Info Box */}
+            <div className="bg-secondary border border-border rounded-lg p-4 flex-shrink-0">
+              <div className="text-xs text-foreground space-y-2">
+                <p className="font-semibold">Y-BOCS™/YBOCS™</p>
+                
+                <div className="mt-3">
+                  <p className="font-semibold">Principal Developer:</p>
+                  <p>Wayne K. Goodman, M.D.</p>
+                </div>
+                
+                <div className="mt-3">
+                  <p className="font-semibold">Co-developers:</p>
+                  <p>Steven A. Rasmussen, M.D.</p>
+                  <p>Lawrence H. Price, M.D.</p>
+                  <p>Eric A. Storch, PhD.</p>
+                </div>
+              </div>
+            </div>
           </div>
-          <p className="text-sm text-muted-foreground">
-            Comprehensive structured assessment for OCD symptom severity
-          </p>
+          <div className="text-sm text-muted-foreground">
+            <p>Comprehensive structured assessment</p>
+            <p>for OCD symptom severity</p>
+          </div>
         </div>
 
         <Card>

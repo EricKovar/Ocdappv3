@@ -104,37 +104,56 @@ export function HomeScreen() {
   return (
     <div className="min-h-screen bg-background py-8 px-4">
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-12">
-          {/* Logo */}
-          <div className="flex justify-center mb-6">
-            <img
-              src="/ocd-scales-logo.jpg"
-              alt="OCD Scales logo"
-              className="h-32 w-auto object-contain"
-              loading="eager"
-              decoding="async"
-            />
-          </div>
-          
-          <p className="text-sm text-muted-foreground mt-2">
-            Comprehensive structured assessment for OCD symptom severity
-          </p>
-          
-          {/* Start Assessment Button */}
-          <div className="mt-8">
-            <Button 
-              onClick={() => navigate('/intake')}
-              className="px-8 py-6 text-lg inline-flex items-center gap-2"
-            >
-              Start Assessment
-              <ArrowRight className="w-5 h-5" />
-            </Button>
+        {/* Header - Logo and Button */}
+        <div className="mb-12">
+          <div className="flex items-start gap-8 mb-8">
+            {/* Left: Logo and subtitle - positioned to center over 2 leftmost columns */}
+            <div className="flex flex-col items-center" style={{ width: 'calc(66.666% - 1rem)' }}>
+              <div className="h-32 w-64 bg-secondary border-2 border-border rounded-lg flex items-center justify-center mb-4">
+                <span className="text-muted-foreground">logo here</span>
+              </div>
+              
+              <div className="text-sm text-muted-foreground text-center">
+                <p>Comprehensive structured assessment</p>
+                <p>for OCD symptom severity</p>
+              </div>
+            </div>
+
+            {/* Right: Start Assessment Button - centered over rightmost column */}
+            <div className="flex items-start justify-center" style={{ width: 'calc(33.333% - 1rem)' }}>
+              <Button 
+                onClick={() => navigate('/intake')}
+                className="px-8 py-6 text-lg inline-flex items-center gap-2"
+              >
+                Start Assessment
+                <ArrowRight className="w-5 h-5" />
+              </Button>
+            </div>
           </div>
         </div>
 
-        {/* Navigation Grid */}
+        {/* Developer Info Box and Navigation Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Developer Info Box - First item in grid, spanning first column */}
+          <div className="bg-secondary border border-border rounded-lg p-4">
+            <div className="text-xs text-foreground space-y-2 text-center">
+              <p className="font-semibold">Y-BOCS™/YBOCS™</p>
+              
+              <div className="mt-3">
+                <p className="font-semibold">Principal Developer:</p>
+                <p>Wayne K. Goodman, M.D.</p>
+              </div>
+              
+              <div className="mt-3">
+                <p className="font-semibold">Co-developers:</p>
+                <p>Steven A. Rasmussen, M.D.</p>
+                <p>Lawrence H. Price, M.D.</p>
+                <p>Eric A. Storch, PhD.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Navigation Items */}
           {navigationItems.map((item) => (
             <Card
               key={item.id}
