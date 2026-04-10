@@ -33,9 +33,13 @@ export function IntakeScreen() {
         
         <div className="text-center mb-8">
           <div className="flex justify-center gap-6 mb-3">
-            <div className="h-32 w-64 bg-secondary border-2 border-border rounded-lg flex items-center justify-center flex-shrink-0">
-              <span className="text-muted-foreground">logo here</span>
-            </div>
+             <div className="flex-shrink-0">
+               <img
+                  src="/ocd-scales-logo.jpg"
+                  alt="OCD Scales logo"
+                  className="h-32 w-auto object-contain"
+               />
+             </div>
             
             {/* Developer Info Box */}
             <div className="bg-secondary border border-border rounded-lg p-4 flex-shrink-0">
