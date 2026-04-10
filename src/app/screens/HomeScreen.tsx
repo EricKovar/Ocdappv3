@@ -137,7 +137,6 @@ export function HomeScreen() {
                 className="max-h-full max-w-full object-contain"
               />
             </div>
-            </div>
 
             <div className="text-center mb-6">
               <p className="text-xs text-gray-500">Comprehensive structured assessment</p>
