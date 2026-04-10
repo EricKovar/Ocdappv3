@@ -4,7 +4,6 @@ import { useAssessment } from '../context/AssessmentContext';
 import { Button } from '../components/Button';
 import { Input } from '../components/Input';
 import { Card } from '../components/Card';
-import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { Calendar, ArrowLeft } from 'lucide-react';
 
 export function IntakeScreen() {
@@ -21,52 +20,52 @@ export function IntakeScreen() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-8">
-      <div className="w-full max-w-2xl">
+    <div className="min-h-screen bg-gray-100 py-8 px-6">
+      <div className="max-w-4xl mx-auto">
+        {/* Back to Home Link */}
         <button
           onClick={() => navigate('/')}
-          className="flex items-center gap-2 text-muted-foreground hover:text-foreground mb-6 transition-colors"
+          className="flex items-center gap-2 text-gray-500 hover:text-gray-700 mb-8 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           <span className="text-sm">Back to Home</span>
         </button>
-        
-        <div className="text-center mb-8">
-          <div className="flex justify-center gap-6 mb-3">
-             <div className="flex-shrink-0">
-               <img
-                  src="/ocd-scales-logo.jpg"
-                  alt="OCD Scales logo"
-                  className="h-32 w-auto object-contain"
-               />
-             </div>
-            
-            {/* Developer Info Box */}
-            <div className="bg-secondary border border-border rounded-lg p-4 flex-shrink-0">
-              <div className="text-xs text-foreground space-y-2">
-                <p className="font-semibold">Y-BOCS™/YBOCS™</p>
-                
-                <div className="mt-3">
-                  <p className="font-semibold">Principal Developer:</p>
-                  <p>Wayne K. Goodman, M.D.</p>
-                </div>
-                
-                <div className="mt-3">
-                  <p className="font-semibold">Co-developers:</p>
-                  <p>Steven A. Rasmussen, M.D.</p>
-                  <p>Lawrence H. Price, M.D.</p>
-                  <p>Eric A. Storch, PhD.</p>
-                </div>
+
+        {/* Header with two cards */}
+        <div className="grid grid-cols-2 gap-6 mb-8">
+          {/* Developer Info Card */}
+          <div className="bg-gray-200 rounded-lg p-6">
+            <div className="text-sm text-gray-700 space-y-3 text-center">
+              <p className="font-semibold">Y-BOCS™/YBOCS™</p>
+
+              <div>
+                <p className="font-semibold">Principal Developer:</p>
+                <p>Wayne K. Goodman, M.D.</p>
+              </div>
+
+              <div>
+                <p className="font-semibold">Co-developers:</p>
+                <p>Steven A. Rasmussen, M.D.</p>
+                <p>Lawrence H. Price, M.D.</p>
+                <p>Eric A. Storch, PhD.</p>
               </div>
             </div>
           </div>
-          <div className="text-sm text-muted-foreground">
-            <p>Comprehensive structured assessment</p>
-            <p>for OCD symptom severity</p>
+
+          {/* Logo and Subtitle Card */}
+          <div className="bg-gray-200 rounded-lg p-6 flex flex-col items-center justify-center">
+            <div className="bg-white rounded border border-gray-300 p-8 mb-4 flex items-center justify-center" style={{ width: '180px', height: '100px' }}>
+              <span className="text-gray-400 text-sm">logo here</span>
+            </div>
+            <div className="text-center">
+              <p className="text-xs text-gray-500">Comprehensive structured assessment</p>
+              <p className="text-xs text-gray-500">for OCD symptom severity</p>
+            </div>
           </div>
         </div>
 
-        <Card>
+        {/* Form Card */}
+        <Card className="bg-white border border-gray-200">
           <form onSubmit={handleSubmit} className="space-y-6">
             <Input
               label="Patient Name"
@@ -85,7 +84,7 @@ export function IntakeScreen() {
                 value={intakeData.dateOfBirth}
                 onChange={handleChange('dateOfBirth')}
               />
-              <Calendar className="absolute right-3 top-[38px] w-5 h-5 text-muted-foreground pointer-events-none" />
+              <Calendar className="absolute right-3 top-[38px] w-5 h-5 text-gray-400 pointer-events-none" />
             </div>
 
             <Input
@@ -105,7 +104,7 @@ export function IntakeScreen() {
                 value={intakeData.date}
                 onChange={handleChange('date')}
               />
-              <Calendar className="absolute right-3 top-[38px] w-5 h-5 text-muted-foreground pointer-events-none" />
+              <Calendar className="absolute right-3 top-[38px] w-5 h-5 text-gray-400 pointer-events-none" />
             </div>
 
             <Input
