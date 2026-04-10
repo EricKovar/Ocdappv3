@@ -59,7 +59,7 @@ export function IntakeScreen() {
              style={{ width: '180px', height: '100px' }}
            >
              <img
-               src="/ocd-scales-logo.jpg"
+               src="/ocd-scales-logo.png"
                alt="OCD Scales logo"
                className="max-h-full max-w-full object-contain"
              />
