@@ -2,10 +2,8 @@ import { createBrowserRouter } from 'react-router';
 import { HomeScreen } from './screens/HomeScreen';
 import { IntakeScreen } from './screens/IntakeScreen';
 import { InstructionsScreen } from './screens/InstructionsScreen';
-import { SymptomsScreen } from './screens/SymptomsScreen';
-import { ObsessionsScreen } from './screens/ObsessionsScreen';
-import { CompulsionsScreen } from './screens/CompulsionsScreen';
-import { AvoidanceScreen } from './screens/AvoidanceScreen';
+import { BriefInstructionsScreen } from './screens/BriefInstructionsScreen';
+import { SymptomChecklistScreen } from './screens/SymptomChecklistScreen';
 import { TargetSymptomsScreen } from './screens/TargetSymptomsScreen';
 import { SeverityInterviewScreen } from './screens/SeverityInterviewScreen';
 import { ResultsScreen } from './screens/ResultsScreen';
@@ -25,20 +23,20 @@ export const router = createBrowserRouter([
     Component: InstructionsScreen,
   },
   {
-    path: '/symptoms',
-    Component: SymptomsScreen,
+    path: '/brief-instructions',
+    Component: BriefInstructionsScreen,
   },
   {
     path: '/obsessions',
-    Component: ObsessionsScreen,
+    Component: SymptomChecklistScreen,
   },
   {
     path: '/compulsions',
-    Component: CompulsionsScreen,
+    Component: SymptomChecklistScreen,
   },
   {
     path: '/avoidance',
-    Component: AvoidanceScreen,
+    Component: SymptomChecklistScreen,
   },
   {
     path: '/target-symptoms',
