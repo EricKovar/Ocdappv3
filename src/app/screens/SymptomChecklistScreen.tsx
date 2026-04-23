@@ -253,6 +253,34 @@ export function SymptomChecklistScreen() {
     return filtered;
   }, [all, activeCategory, searchTerm, activeSection]);
 
+  // Group items by category for display, preserving original category order
+  const groupedItems = useMemo(() => {
+    const groups: { category: string; items: SymptomItem[] }[] = [];
+    const categoriesMap = new Map<string, SymptomItem[]>();
+
+    filteredItems.forEach(item => {
+      if (!categoriesMap.has(item.category)) {
+        categoriesMap.set(item.category, []);
+      }
+      categoriesMap.get(item.category)!.push(item);
+    });
+
+    // Preserve the original category order from the data source
+    const categoryOrder = activeSection === 'obsessions'
+      ? OBSESSION_DATA.map(c => c.category)
+      : activeSection === 'compulsions'
+      ? COMPULSION_DATA.map(c => c.category)
+      : ['Avoidance Behaviors'];
+
+    categoryOrder.forEach(category => {
+      if (categoriesMap.has(category)) {
+        groups.push({ category, items: categoriesMap.get(category)! });
+      }
+    });
+
+    return groups;
+  }, [filteredItems, activeSection]);
+
   const categoryCounts = useMemo(() => {
     const counts: Record<string, number> = {};
     categories.forEach(({ category }) => {
@@ -399,30 +427,44 @@ export function SymptomChecklistScreen() {
           <div className="space-y-6">
             <Card className="bg-secondary/30">
               <p className="text-sm text-foreground leading-relaxed">
-                {activeSection === 'obsessions' && 'Assess the presence of obsessive thoughts, images, or impulses experienced by the patient. These are typically unwanted, distressing, and intrusive. Identify both current and past symptoms, and indicate which are most prominent for assessment.'}
-                {activeSection === 'compulsions' && 'Assess compulsive behaviors or mental acts that the patient feels driven to perform in response to obsessions or according to rigid rules. These behaviors are typically aimed at reducing anxiety or preventing feared outcomes, even if they are recognized as excessive or unrealistic.'}
-                {activeSection === 'avoidance' && 'Evaluate avoidance behaviors used to reduce exposure to triggers associated with obsessions or compulsions. Identify behaviors that limit functioning or are used in place of rituals, and include them as part of the overall symptom profile.'}
+                {activeSection === 'obsessions' && 'Identify both current and past obsessions, and mark principal symptoms for inclusion in the Target Symptom List.'}
+                {activeSection === 'compulsions' && 'Identify both current and past compulsions and mark principal symptoms for inclusion in the Target Symptom List.'}
+                {activeSection === 'avoidance' && 'Evaluate avoidance behaviors used to reduce exposure to triggers associated with obsessions or compulsions.'}
               </p>
             </Card>
 
-            <div className="space-y-3">
-              {filteredItems.map(item => {
-                const selectedItem = selected.find(s => s.id === item.id);
-                const isSelected = !!selectedItem;
-                const displayItem = selectedItem || item;
+            <div className="space-y-6">
+              {groupedItems.map(group => (
+                <div key={group.category} className="space-y-3">
+                  {/* Category Header */}
+                  <div className="bg-primary/10 border-l-4 border-primary px-4 py-2 rounded">
+                    <h3 className="font-semibold text-primary uppercase tracking-wide text-sm">
+                      {group.category}
+                    </h3>
+                  </div>
 
-                return (
-                  <ChecklistRow
-                    key={item.id}
-                    symptom={displayItem}
-                    isSelected={isSelected}
-                    onToggle={() => toggleItem(item)}
-                    onCurrentToggle={() => updateItem(item.id, { current: !displayItem.current })}
-                    onPastToggle={() => updateItem(item.id, { past: !displayItem.past })}
-                    onPrimaryToggle={() => updateItem(item.id, { primary: !displayItem.primary })}
-                  />
-                );
-              })}
+                  {/* Category Items */}
+                  <div className="space-y-2 pl-2">
+                    {group.items.map(item => {
+                      const selectedItem = selected.find(s => s.id === item.id);
+                      const isSelected = !!selectedItem;
+                      const displayItem = selectedItem || item;
+
+                      return (
+                        <ChecklistRow
+                          key={item.id}
+                          symptom={displayItem}
+                          isSelected={isSelected}
+                          onToggle={() => toggleItem(item)}
+                          onCurrentToggle={() => updateItem(item.id, { current: !displayItem.current })}
+                          onPastToggle={() => updateItem(item.id, { past: !displayItem.past })}
+                          onPrimaryToggle={() => updateItem(item.id, { primary: !displayItem.primary })}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 

@@ -101,6 +101,10 @@ export function BriefInstructionsScreen() {
               </li>
               <li className="flex gap-3">
                 <span className="text-accent font-semibold">•</span>
+                <span>Rater must ascertain whether reported behaviors are bona fide symptoms of OCD, and not symptoms of another disorder such as generalized anxiety disorder or gender dysphoria</span>
+              </li>
+              <li className="flex gap-3">
+                <span className="text-accent font-semibold">•</span>
                 <span>Refer to the Target Symptoms generated in the first visit as a guide to the most prominent symptoms</span>
               </li>
               <li className="flex gap-3">
