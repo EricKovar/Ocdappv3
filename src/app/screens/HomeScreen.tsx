@@ -125,10 +125,13 @@ export function HomeScreen() {
           </Card>
 
           <Card className="bg-white border border-gray-200 shadow-sm p-8 flex flex-col items-center justify-between">
-            <div className="bg-gray-100 rounded border border-gray-200 flex items-center justify-center mb-6 w-[180px] h-[80px]">
-              <span className="text-gray-400 text-sm">logo here</span>
+            <div className="bg-white rounded border border-gray-300 flex items-center justify-center mb-6 w-[180px] h-[80px] p-2">
+              <img
+                src="/ocd-scales-logo.png"
+                alt="OCD Scales logo"
+                className="block max-h-full max-w-full object-contain"
+              />
             </div>
-
             <div className="text-center mb-6">
               <p className="text-xs">Comprehensive structured assessment</p>
               <p className="text-xs">for OCD symptom severity</p>
