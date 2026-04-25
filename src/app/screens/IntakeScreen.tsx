@@ -52,12 +52,16 @@ export function IntakeScreen() {
               </div>
             </div>
           </div>
-
           {/* Logo and Subtitle Card */}
           <div className="bg-gray-200 rounded-lg p-6 flex flex-col items-center justify-center">
-            <div className="bg-white rounded border border-gray-300 p-8 mb-4 flex items-center justify-center" style={{ width: '180px', height: '100px' }}>
-              <span className="text-gray-400 text-sm">logo here</span>
-            </div>
+           <div className="bg-white rounded border border-gray-300 p-4 mb-4 flex items-center justify-center w-[180px] h-[100px]">
+             <img
+               src="/ocd-scales-logo.png"
+               alt="OCD Scales logo"
+               className="block max-h-full max-w-full object-contain"
+             />
+          </div>
+     
             <div className="text-center">
               <p className="text-xs text-gray-500">Comprehensive structured assessment</p>
               <p className="text-xs text-gray-500">for OCD symptom severity</p>
