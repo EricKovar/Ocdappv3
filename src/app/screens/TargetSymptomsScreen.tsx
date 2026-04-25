@@ -5,6 +5,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import { useAssessment, TargetSymptom } from '../context/AssessmentContext';
 import { Button } from '../components/Button';
 import { Card } from '../components/Card';
+import { CustomTargetInput } from '../components/CustomTargetInput';
 import { ArrowLeft, GripVertical, X } from 'lucide-react';
 
 const ItemTypes = {
@@ -75,6 +76,10 @@ function TargetSymptomsContent() {
     setTargetAvoidance,
   } = useAssessment();
 
+  const [customObsessions, setCustomObsessions] = React.useState<Array<{ id: string; label: string }>>([]);
+  const [customCompulsions, setCustomCompulsions] = React.useState<Array<{ id: string; label: string }>>([]);
+  const [customAvoidance, setCustomAvoidance] = React.useState<Array<{ id: string; label: string }>>([]);
+
   const addTargetObsession = (label: string, id: string) => {
     if (targetObsessions.length < 3 && !targetObsessions.find(t => t.id === id)) {
       setTargetObsessions([
@@ -100,6 +105,21 @@ function TargetSymptomsContent() {
         { id, label, rank: targetAvoidance.length + 1 },
       ]);
     }
+  };
+
+  const addCustomTargetObsession = (label: string) => {
+    const customId = `custom-target-obs-${Date.now()}`;
+    setCustomObsessions([...customObsessions, { id: customId, label }]);
+  };
+
+  const addCustomTargetCompulsion = (label: string) => {
+    const customId = `custom-target-comp-${Date.now()}`;
+    setCustomCompulsions([...customCompulsions, { id: customId, label }]);
+  };
+
+  const addCustomTargetAvoidance = (label: string) => {
+    const customId = `custom-target-avoid-${Date.now()}`;
+    setCustomAvoidance([...customAvoidance, { id: customId, label }]);
   };
 
   const moveObsession = (dragIndex: number, hoverIndex: number) => {
@@ -265,14 +285,14 @@ function TargetSymptomsContent() {
               <h3 className="font-semibold text-foreground mb-4">Principal Symptoms</h3>
 
               <div className="space-y-4">
-                {selectedObsessions.filter(s => s.primary || s.current).length > 0 && (
+                {(selectedObsessions.filter(s => s.primary).length > 0 || customObsessions.length > 0 || true) && (
                   <div>
                     <h4 className="text-xs font-semibold text-muted-foreground uppercase mb-2">
                       Obsessions
                     </h4>
                     <div className="space-y-2">
                       {selectedObsessions
-                        .filter(s => s.primary || s.current)
+                        .filter(s => s.primary)
                         .map(symptom => {
                           const isSelected = targetObsessions.some(t => t.id === symptom.id);
                           return (
@@ -296,18 +316,45 @@ function TargetSymptomsContent() {
                           </button>
                           );
                         })}
+                      {customObsessions.map(custom => {
+                        const isSelected = targetObsessions.some(t => t.id === custom.id);
+                        return (
+                          <button
+                            key={custom.id}
+                            onClick={() => addTargetObsession(custom.label, custom.id)}
+                            disabled={
+                              targetObsessions.length >= 3 ||
+                              isSelected
+                            }
+                            className="w-full flex items-center gap-2 p-2 text-left border border-border rounded-md hover:bg-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                          >
+                            <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                              isSelected ? 'border-primary bg-primary' : 'border-muted-foreground'
+                            }`}>
+                              {isSelected && <div className="w-2 h-2 rounded-full bg-primary-foreground" />}
+                            </div>
+                            <span className="text-xs text-foreground flex-1">
+                              {custom.label}
+                            </span>
+                          </button>
+                        );
+                      })}
+                      <CustomTargetInput
+                        onAdd={addCustomTargetObsession}
+                        disabled={targetObsessions.length >= 3}
+                      />
                     </div>
                   </div>
                 )}
 
-                {selectedCompulsions.filter(s => s.primary || s.current).length > 0 && (
+                {(selectedCompulsions.filter(s => s.primary).length > 0 || customCompulsions.length > 0 || true) && (
                   <div>
                     <h4 className="text-xs font-semibold text-muted-foreground uppercase mb-2">
                       Compulsions
                     </h4>
                     <div className="space-y-2">
                       {selectedCompulsions
-                        .filter(s => s.primary || s.current)
+                        .filter(s => s.primary)
                         .map(symptom => {
                           const isSelected = targetCompulsions.some(t => t.id === symptom.id);
                           return (
@@ -331,18 +378,45 @@ function TargetSymptomsContent() {
                           </button>
                           );
                         })}
+                      {customCompulsions.map(custom => {
+                        const isSelected = targetCompulsions.some(t => t.id === custom.id);
+                        return (
+                          <button
+                            key={custom.id}
+                            onClick={() => addTargetCompulsion(custom.label, custom.id)}
+                            disabled={
+                              targetCompulsions.length >= 3 ||
+                              isSelected
+                            }
+                            className="w-full flex items-center gap-2 p-2 text-left border border-border rounded-md hover:bg-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                          >
+                            <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                              isSelected ? 'border-primary bg-primary' : 'border-muted-foreground'
+                            }`}>
+                              {isSelected && <div className="w-2 h-2 rounded-full bg-primary-foreground" />}
+                            </div>
+                            <span className="text-xs text-foreground flex-1">
+                              {custom.label}
+                            </span>
+                          </button>
+                        );
+                      })}
+                      <CustomTargetInput
+                        onAdd={addCustomTargetCompulsion}
+                        disabled={targetCompulsions.length >= 3}
+                      />
                     </div>
                   </div>
                 )}
 
-                {selectedAvoidance.filter(s => s.primary || s.current).length > 0 && (
+                {(selectedAvoidance.filter(s => s.primary).length > 0 || customAvoidance.length > 0 || true) && (
                   <div>
                     <h4 className="text-xs font-semibold text-muted-foreground uppercase mb-2">
                       Avoidance
                     </h4>
                     <div className="space-y-2">
                       {selectedAvoidance
-                        .filter(s => s.primary || s.current)
+                        .filter(s => s.primary)
                         .map(symptom => {
                           const isSelected = targetAvoidance.some(t => t.id === symptom.id);
                           return (
@@ -366,6 +440,33 @@ function TargetSymptomsContent() {
                           </button>
                           );
                         })}
+                      {customAvoidance.map(custom => {
+                        const isSelected = targetAvoidance.some(t => t.id === custom.id);
+                        return (
+                          <button
+                            key={custom.id}
+                            onClick={() => addTargetAvoidance(custom.label, custom.id)}
+                            disabled={
+                              targetAvoidance.length >= 3 ||
+                              isSelected
+                            }
+                            className="w-full flex items-center gap-2 p-2 text-left border border-border rounded-md hover:bg-secondary transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                          >
+                            <div className={`w-4 h-4 rounded-full border-2 flex items-center justify-center ${
+                              isSelected ? 'border-primary bg-primary' : 'border-muted-foreground'
+                            }`}>
+                              {isSelected && <div className="w-2 h-2 rounded-full bg-primary-foreground" />}
+                            </div>
+                            <span className="text-xs text-foreground flex-1">
+                              {custom.label}
+                            </span>
+                          </button>
+                        );
+                      })}
+                      <CustomTargetInput
+                        onAdd={addCustomTargetAvoidance}
+                        disabled={targetAvoidance.length >= 3}
+                      />
                     </div>
                   </div>
                 )}

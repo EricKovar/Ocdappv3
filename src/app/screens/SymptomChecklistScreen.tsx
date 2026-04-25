@@ -2,6 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import { useAssessment, SymptomItem } from '../context/AssessmentContext';
 import { ChecklistRow } from '../components/ChecklistRow';
+import { CustomSymptomRow } from '../components/CustomSymptomRow';
 import { Card } from '../components/Card';
 import { Button } from '../components/Button';
 import { Search, X, ArrowLeft } from 'lucide-react';
@@ -326,6 +327,25 @@ export function SymptomChecklistScreen() {
     setter(selected.filter(s => s.id !== id));
   };
 
+  const addCustomSymptom = (category: string, label: string) => {
+    const setter = activeSection === 'obsessions' ? setSelectedObsessions : activeSection === 'compulsions' ? setSelectedCompulsions : setSelectedAvoidance;
+    const timestamp = Date.now();
+    const customId = `custom-${activeSection}-${category}-${timestamp}`;
+    const newSymptom: SymptomItem = {
+      id: customId,
+      label,
+      category,
+      current: false,
+      past: false,
+      primary: false,
+    };
+    setter([...selected, newSymptom]);
+  };
+
+  const getCustomSymptomsForCategory = (category: string) => {
+    return selected.filter(s => s.id.startsWith(`custom-${activeSection}-${category}-`));
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <div className="max-w-7xl mx-auto p-8">
@@ -434,37 +454,71 @@ export function SymptomChecklistScreen() {
             </Card>
 
             <div className="space-y-6">
-              {groupedItems.map(group => (
-                <div key={group.category} className="space-y-3">
-                  {/* Category Header */}
-                  <div className="bg-primary/10 border-l-4 border-primary px-4 py-2 rounded">
-                    <h3 className="font-semibold text-primary uppercase tracking-wide text-sm">
-                      {group.category}
-                    </h3>
-                  </div>
+              {groupedItems.map(group => {
+                const customSymptoms = getCustomSymptomsForCategory(group.category);
 
-                  {/* Category Items */}
-                  <div className="space-y-2 pl-2">
-                    {group.items.map(item => {
-                      const selectedItem = selected.find(s => s.id === item.id);
-                      const isSelected = !!selectedItem;
-                      const displayItem = selectedItem || item;
+                return (
+                  <div key={group.category} className="space-y-3">
+                    {/* Category Header */}
+                    <div className="bg-primary/10 border-l-4 border-primary px-4 py-2 rounded">
+                      <h3 className="font-semibold text-primary uppercase tracking-wide text-sm">
+                        {group.category}
+                      </h3>
+                    </div>
 
-                      return (
-                        <ChecklistRow
-                          key={item.id}
-                          symptom={displayItem}
-                          isSelected={isSelected}
-                          onToggle={() => toggleItem(item)}
-                          onCurrentToggle={() => updateItem(item.id, { current: !displayItem.current })}
-                          onPastToggle={() => updateItem(item.id, { past: !displayItem.past })}
-                          onPrimaryToggle={() => updateItem(item.id, { primary: !displayItem.primary })}
-                        />
-                      );
-                    })}
+                    {/* Category Items */}
+                    <div className="space-y-2 pl-2">
+                      {group.items.map(item => {
+                        const selectedItem = selected.find(s => s.id === item.id);
+                        const isSelected = !!selectedItem;
+                        const displayItem = selectedItem || item;
+
+                        return (
+                          <ChecklistRow
+                            key={item.id}
+                            symptom={displayItem}
+                            isSelected={isSelected}
+                            onToggle={() => toggleItem(item)}
+                            onCurrentToggle={() => updateItem(item.id, { current: !displayItem.current })}
+                            onPastToggle={() => updateItem(item.id, { past: !displayItem.past })}
+                            onPrimaryToggle={() => updateItem(item.id, { primary: !displayItem.primary })}
+                          />
+                        );
+                      })}
+
+                      {/* Custom Symptoms */}
+                      {customSymptoms.map(customSymptom => {
+                        const isSelected = true;
+
+                        return (
+                          <ChecklistRow
+                            key={customSymptom.id}
+                            symptom={customSymptom}
+                            isSelected={isSelected}
+                            onToggle={() => removeItem(customSymptom.id)}
+                            onCurrentToggle={() => updateItem(customSymptom.id, { current: !customSymptom.current })}
+                            onPastToggle={() => updateItem(customSymptom.id, { past: !customSymptom.past })}
+                            onPrimaryToggle={() => updateItem(customSymptom.id, { primary: !customSymptom.primary })}
+                          />
+                        );
+                      })}
+
+                      {/* Custom Symptom Input */}
+                      <CustomSymptomRow
+                        category={group.category}
+                        onAdd={(label) => addCustomSymptom(group.category, label)}
+                        existingSymptom={undefined}
+                        isSelected={false}
+                        onToggle={() => {}}
+                        onCurrentToggle={() => {}}
+                        onPastToggle={() => {}}
+                        onPrimaryToggle={() => {}}
+                        onUpdate={() => {}}
+                      />
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
